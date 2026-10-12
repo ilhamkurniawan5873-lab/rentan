@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pencarian Produk Rentan - 24781043</title>
+</head>
+<body>
+  <h2>Pencarian Produk (Rentan)</h2>
+  <input type="text" id="searchInput" placeholder="Cari produk...">
+  <button onclick="search()">Cari</button>
+  <div id="results"></div>
+
+  <script>
+    const products = [
+      { id: 1, name: "Laptop", user: "admin", price: 1000 },
+      { id: 2, name: "Mouse", user: "user", price: 50 }
+    ];
+
+    function search() {
+      const query = document.getElementById('searchInput').value;
+      // Rentan: Menggunakan eval / pembentukan ekspresi dari string input
+      const filtered = products.filter(p => eval(`'${p.name}' == '${query}' || ${query === "' || true || '" ? 'true' : 'false'}`));
+      
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = filtered.length > 0 
+        ? filtered.map(p => `<p>${p.name} - $${p.price}</p>`).join('')
+        : '<p>Produk tidak ditemukan.</p>';
+    }
+  </script>
+</body>
+</html>
